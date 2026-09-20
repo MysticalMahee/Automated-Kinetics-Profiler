@@ -73,7 +73,7 @@ $$\int_{[A]_0}^{[A]_t} \frac{1}{[A]} d[A] = -k \int_{0}^{t} dt$$
 
 $$\ln[A]_t = -kt + \ln[A]_0$$
 
-Plotting \$`[A]_t`\(vs\)`t`\(yields a straight line with slope\)-k`\$.
+Plotting $\ln[A]_t$ vs $t$ yields a straight line with slope $-k$.
 
 
 **Second-Order Reaction (Reciprocal Transformation)**
@@ -87,7 +87,7 @@ $$-\left( \frac{1}{[A]_t} - \frac{1}{[A]_0} \right) = -kt$$
 
 $$\frac{1}{[A]_t} = kt + \frac{1}{[A]_0}$$
 
-*Plotting $1/[A]_t$ vs $t$ yields a straight line with slope $k$.*
+Plotting $1/[A]_t$ vs $t$ yields a straight line with slope $k$.
 
 <h4>2. The Regression Pipeline</h4>
 <ul>
