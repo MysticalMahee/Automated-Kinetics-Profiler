@@ -1,7 +1,7 @@
 # Automated Reaction Kinetics Profiler
 
 ## Objective
-To build an automated, programmatic pipeline that determines chemical reaction orders and rate constants directly from raw time-concentration data. This script replaces manual, error-prone Excel curve-fitting with a robust Python workflow. We will do a simple analysis on the rate order reactions for dinitrogen pentoxide,  N<sub>2</sub>O<sub>5</sub>, which decomposes to NO<sub>2</sub> and NO<sub>3</sub>.
+To build an automated, programmatic pipeline that determines chemical reaction orders and rate constants directly from raw time-concentration data. This script replaces manual, error-prone Excel curve-fitting with a clean Python workflow. We will do a simple analysis on the rate order reactions for dinitrogen pentoxide,  N<sub>2</sub>O<sub>5</sub>, which decomposes to NO<sub>2</sub> and NO<sub>3</sub>.
 
 
 ## Source of Information
