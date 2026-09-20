@@ -147,6 +147,19 @@ The script utilizes `matplotlib` to generate a side-by-side diagnostic plot, pro
 <img width="1439" height="1006" alt="image" src="https://github.com/user-attachments/assets/dc6ea304-3113-4965-8896-7bc726edc629" />
 
 
+## Conclusion & Future Scope
+
+This project successfully bridges classical physical chemistry with modern computational data science. By replacing manual spreadsheet calculations with an automated Python pipeline, the script drastically reduces analytical processing time while mathematically proving reaction mechanisms despite high instrumental noise.
+
+**Potential Future Enhancements:**
+* **Real-World Data Integration:** Adapting the ingestion pipeline to parse raw `.csv` or `.txt` exports directly from benchtop UV-Vis spectrometers.
+* **Arrhenius Expansion:** Integrating temperature-dependent datasets to automatically calculate activation energy ($E_a$) and the pre-exponential factor ($A$).
+* **Advanced Error Handling:** Implementing rolling averages or Savitzky-Golay filters in `scipy.signal` to smooth extreme baseline noise before regression analysis.
+
+
+
+
+
 ## Tech Stack
 * **Data Processing:** `pandas`, `numpy`
 * **Statistical Modeling:** `scipy`
