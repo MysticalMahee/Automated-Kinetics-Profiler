@@ -16,8 +16,3 @@ The script utilizes `matplotlib` to generate a side-by-side diagnostic plot, pro
 * **Data Processing:** `pandas`, `numpy`
 * **Statistical Modeling:** `scipy`
 * **Visualization:** `matplotlib`
-
-## How to Run
-1. Clone the repository.
-2. Install dependencies via `pip install -r requirements.txt`.
-3. Run `python kinetics_analyzer.py`. The script will output the calculated $R^2$ values to the terminal and generate the diagnostic plot.
