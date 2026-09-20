@@ -47,32 +47,45 @@ There are some parts of the code in which users can play and test around to see 
 
 <hr>
 
-<h3>Phase 2: SciPy Analytics & Mathematical Derivations</h3>
+### Phase 2: SciPy Analytics & Mathematical Derivations
 
-<h4>1. The Kinetic Transformations</h4>
-<p>Linear regression algorithms strictly calculate the fit of a straight line ($y = mx + c$). Because chemical concentrations decay exponentially, we use integration to mathematically straighten the data. Below are the derivations proving these transformations:</p>
+#### 1. The Kinetic Transformations
+Linear regression algorithms strictly calculate the fit of a straight line ($y = mx + c$). Because chemical concentrations decay exponentially, we use integration to mathematically straighten the data. Below are the derivations proving these transformations:
 
-<strong>Zero-Order Reaction (No Transformation)</strong>
-<p>The rate is independent of concentration.</p>
+**Zero-Order Reaction (No Transformation)**
+The rate is independent of concentration.
+
 $$-\frac{d[A]}{dt} = k$$
+
 $$\int_{[A]_0}^{[A]_t} d[A] = -k \int_{0}^{t} dt$$
+
 $$[A]_t = -kt + [A]_0$$
-<p><em>Plotting $[A]_t$ vs $t$ yields a straight line with slope $-k$.</em></p>
 
-<strong>First-Order Reaction (Natural Log Transformation)</strong>
-<p>The rate is directly proportional to concentration.</p>
+*Plotting $[A]_t$ vs $t$ yields a straight line with slope $-k$.*
+
+**First-Order Reaction (Natural Log Transformation)**
+The rate is directly proportional to concentration.
+
 $$-\frac{d[A]}{dt} = k[A]$$
-$$\int_{[A]_0}^{[A]_t} \frac{1}{[A]} d[A] = -k \int_{0}^{t} dt$$
-$$\ln[A]_t = -kt + \ln[A]_0$$
-<p><em>Plotting $\ln[A]_t$ vs $t$ yields a straight line with slope $-k$.</em></p>
 
-<strong>Second-Order Reaction (Reciprocal Transformation)</strong>
-<p>The rate is proportional to the square of the concentration.</p>
+$$\int_{[A]_0}^{[A]_t} \frac{1}{[A]} d[A] = -k \int_{0}^{t} dt$$
+
+$$\ln[A]_t = -kt + \ln[A]_0$$
+
+*Plotting $\ln[A]_t$ vs $t$ yields a straight line with slope $-k$.*
+
+**Second-Order Reaction (Reciprocal Transformation)**
+The rate is proportional to the square of the concentration.
+
 $$-\frac{d[A]}{dt} = k[A]^2$$
+
 $$\int_{[A]_0}^{[A]_t} \frac{1}{[A]^2} d[A] = -k \int_{0}^{t} dt$$
+
 $$-\left( \frac{1}{[A]_t} - \frac{1}{[A]_0} \right) = -kt$$
+
 $$\frac{1}{[A]_t} = kt + \frac{1}{[A]_0}$$
-<p><em>Plotting $1/[A]_t$ vs $t$ yields a straight line with slope $k$.</em></p>
+
+*Plotting $1/[A]_t$ vs $t$ yields a straight line with slope $k$.*
 
 <h4>2. The Regression Pipeline</h4>
 <ul>
