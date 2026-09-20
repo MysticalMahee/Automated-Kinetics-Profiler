@@ -1,10 +1,10 @@
 # Automated-Kinetics-Profiler
 
 ## Objective
-To build an automated, programmatic pipeline that determines chemical reaction orders and rate constants directly from raw time-concentration data. This script replaces manual, error-prone Excel curve-fitting with a robust Python workflow.
+To build an automated, programmatic pipeline that determines chemical reaction orders and rate constants directly from raw time-concentration data. This script replaces manual, error-prone Excel curve-fitting with a clean Python workflow. 
 
 ## Methodology
-The pipeline ingests raw instrumental data and applies mathematical transformations to test for Zero-Order ($[A]$), First-Order ($\ln[A]$), and Second-Order ($1/[A]$) kinetics. Using `scipy.stats.linregress`, the script automatically identifies the true reaction order by evaluating which integrated rate law yields the highest coefficient of determination ($R^2$). 
+The pipeline ingests raw instrumental data and applies mathematical transformations to test for Zero-Order ($[A]$), First-Order ($\ln[A]$), and Second-Order ($1/[A]$) kinetics reactions. Using `scipy.stats.linregress`, the script automatically identifies the true reaction order by evaluating which integrated rate law yields the highest coefficient of determination ($R^2$). 
 
 ## Visual Validation
 The script utilizes `matplotlib` to generate a side-by-side diagnostic plot, proving the mathematical output. As demonstrated below, the pipeline successfully identified the simulated $N_2O_5$ decomposition data as a First-Order reaction.
