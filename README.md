@@ -61,7 +61,7 @@ $$\int_{[A]_0}^{[A]_t} d[A] = -k \int_{0}^{t} dt$$
 
 $$[A]_t = -kt + [A]_0$$
 
-<p><em>Plotting $[A]_t$ vs $t$ yields a straight line with slope $-k$.</em></p>
+Plotting $[A]_t$ vs $t$ yields a straight line with slope $-k$.
 
 
 **First-Order Reaction (Natural Log Transformation)**
