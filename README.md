@@ -19,13 +19,9 @@ https://kinetics.nist.gov/kinetics/index.jsp . The following screenshots below s
 The pipeline ingests raw instrumental data and applies mathematical transformations to test for Zero-Order ($[A]$), First-Order ($\ln[A]$), and Second-Order ($1/[A]$) kinetics. Using `scipy.stats.linregress`, the script automatically identifies the true reaction order by evaluating which integrated rate law yields the highest coefficient of determination ($R^2$). 
 
 
-## Python code help and warnings
+<h2>Technical Highlights & Developer Notes</h2>
 
 There are some parts of the code in which users can play and test around to see what will happen if some values are changed, and below I will show some main points that WILL matter.
-
-## Technical Highlights & Edge Cases
-
-<h2>Technical Highlights & Developer Notes</h2>
 
 <h3>Phase 1: Data Generation & Pre-Processing</h3>
 <ul>
