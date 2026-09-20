@@ -1,0 +1,94 @@
+Below is the given code which generates the concentrations for the Decomposition of N2O5
+
+---
+
+# Automated Reaction Kinetics for N2O5 Decomposition
+
+```python
+import numpy as np
+import pandas as pd
+
+k_rate = 0.06 #units of s^-1 since it is 1st order
+A_initial = 0.10 # random initial concentration of N2O5
+
+time_s = np.linspace(0, 60, 60) # time in seconds, generating 60 points from 0 to 60 seconds
+
+concentration_exact = A_initial * np.exp(-k_rate * time_s) # first order reaction kinetics equation
+
+
+np.random.seed(20) # for reproducibility
+noise = np.random.normal(loc=0, scale=0.003, size=len(time_s)) # adding some noise to the data
+concentration_noisy = concentration_exact + noise
+df = pd.DataFrame({'time': time_s, 'concentration': concentration_noisy})
+
+df.to_csv('reaction_kinetics.csv', index=False) # save the data to a CSV file
+
+print("Reaction kinetics data saved to 'reaction_kinetics.csv'")
+df_clean = df[df['concentration'] > 0].copy() # drop negative concentrations
+print(df_clean)
+```
+
+---
+## OUTPUT GENERATED:
+
+
+
+       time       concentration
+0    0.000000       0.102652
+1    1.016949       0.094668
+2    2.033898       0.089584
+3    3.050847       0.076243
+4    4.067797       0.075089
+5    5.084746       0.075385
+6    6.101695       0.072162
+7    7.118644       0.062303
+8    8.135593       0.062886
+9    9.152542       0.058963
+10  10.169492       0.055296
+11  11.186441       0.049630
+12  12.203390       0.045709
+13  13.220339       0.042711
+14  14.237288       0.038722
+15  15.254237       0.040779
+16  16.271186       0.037539
+17  17.288136       0.040144
+18  18.305085       0.036497
+19  19.322034       0.032589
+20  20.338983       0.029007
+21  21.355932       0.018197
+22  22.372881       0.029483
+23  23.389831       0.028575
+24  24.406780       0.022391
+25  25.423729       0.021363
+26  26.440678       0.020138
+27  27.457627       0.023922
+28  28.474576       0.018501
+29  29.491525       0.010841
+30  30.508475       0.013377
+31  31.525424       0.011770
+32  32.542373       0.016990
+33  33.559322       0.019531
+34  34.576271       0.009756
+35  35.593220       0.006978
+36  36.610169       0.012699
+37  37.627119       0.005807
+38  38.644068       0.010830
+39  39.661017       0.005849
+40  40.677966       0.007695
+41  41.694915       0.009158
+42  42.711864       0.005903
+43  43.728814       0.011887
+44  44.745763       0.008765
+45  45.762712       0.008200
+46  46.779661       0.007354
+47  47.796610       0.009756
+48  48.813559       0.008960
+49  49.830508       0.009085
+50  50.847458       0.006212
+52  52.881356       0.002523
+53  53.898305       0.003945
+54  54.915254       0.006278
+55  55.932203       0.007931
+56  56.949153       0.002622
+57  57.966102       0.007597
+59  60.000000       0.000164
