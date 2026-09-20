@@ -89,7 +89,7 @@ $$\frac{1}{[A]_t} = kt + \frac{1}{[A]_0}$$
 
 Plotting $1/[A]_t$ vs $t$ yields a straight line with slope $k$.
 
-<h4>2. The Regression Pipeline</h4>
+<h4>2. The Regression Model</h4>
 <ul>
     <li>
         <strong><code>time_s = df_clean["time"]</code></strong><br>
