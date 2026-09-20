@@ -27,7 +27,7 @@ There are some parts of the code in which users can play and test around to see 
 <ul>
     <li>
         <strong><code>df_clean = df[df['concentration'] > 0].copy()</code></strong><br>
-        <strong>Purpose:</strong> Filters out non-physical negative concentrations. At the tail end of the reaction, simulated instrument noise can push near-zero concentration values below zero. Attempting to pass negative numbers into a natural log function ($\ln(x)$) throws a <code>NaN</code> error and crashes the regression model. 
+        <strong>Purpose:</strong> Filters out any negative concentrations (hence why the 51st value in the `reaction_kinetics.csv` is not present). At the tail end of the reaction, simulated instrument noise can push near-zero concentration values below zero. Attempting to pass negative numbers into a natural log function ($\ln(x)$) throws a <code>NaN</code> error and crashes the regression model. 
         <br><strong>The <code>.copy()</code> function:</strong> This explicitly tells Pandas to allocate a new, isolated block of memory for the filtered data. Without it, Pandas tracks <code>df_clean</code> as a "view" of the original dataframe, which triggers a <code>SettingWithCopyWarning</code> when we attempt to append the new mathematical transformation columns later.
     </li>
     <li>
