@@ -73,7 +73,8 @@ $$\int_{[A]_0}^{[A]_t} \frac{1}{[A]} d[A] = -k \int_{0}^{t} dt$$
 
 $$\ln[A]_t = -kt + \ln[A]_0$$
 
-*Plotting $\ln[A]_t$ vs $t$ yields a straight line with slope $-k$.*
+Plotting \$`[A]_t`\(vs\)`t`\(yields a straight line with slope\)-k`\$.
+
 
 **Second-Order Reaction (Reciprocal Transformation)**
 The rate is proportional to the square of the concentration.
