@@ -20,9 +20,113 @@ The pipeline ingests raw instrumental data and applies mathematical transformati
 
 
 ## Python code help and warnings
-'''
-time_s = np.linspace(0, 60, 60) 
-'''
+
+There are some parts of the code in which users can play and test around to see what will happen if some values are changed, and below I will show some main points that WILL matter.
+
+## Technical Highlights & Edge Cases
+
+<h2>Technical Highlights & Developer Notes</h2>
+
+<h3>Phase 1: Data Generation & Pre-Processing</h3>
+<ul>
+    <li>
+        <strong><code>df_clean = df[df['concentration'] > 0].copy()</code></strong><br>
+        <strong>Purpose:</strong> Filters out non-physical negative concentrations. At the tail end of the reaction, simulated instrument noise can push near-zero concentration values below zero. Attempting to pass negative numbers into a natural log function ($\ln(x)$) throws a <code>NaN</code> error and crashes the regression model. 
+        <br><strong>The <code>.copy()</code> function:</strong> This explicitly tells Pandas to allocate a new, isolated block of memory for the filtered data. Without it, Pandas tracks <code>df_clean</code> as a "view" of the original dataframe, which triggers a <code>SettingWithCopyWarning</code> when we attempt to append the new mathematical transformation columns later.
+    </li>
+    <li>
+        <strong><code>time_s = np.linspace(0, 60, 60)</code></strong><br>
+        <strong>Purpose:</strong> Defines the sampling window and data density. 
+        <br><strong>The "Goldilocks" Principle:</strong> For a rate constant of $k = 0.06$ s⁻¹, the half-life is roughly $11.55$ seconds. A 60-second window captures ~5 half-lives, which is the physical chemistry gold standard for kinetic profiling. 
+        <ul>
+            <li><em>Too high (e.g., 1000 points over 1000s):</em> The chemical is entirely depleted by 100s. The remaining 900s would sample pure baseline instrument noise. Taking the natural log of baseline noise creates massive scatter, destroying the $R^2$ value.</li>
+            <li><em>Too low (e.g., 10 points over 60s):</em> Yields insufficient data density to achieve statistical confidence in the linear regression. 60 points perfectly mimics a standard 1 Hz UV-Vis spectrometer acquisition rate.</li>
+        </ul>
+    </li>
+    <li>
+        <strong><code>np.random.seed(20)</code></strong><br>
+        <strong>Purpose:</strong> Initializes the pseudo-random number generator for reproducibility. By locking the seed to a specific integer (like 20), the script applies the exact same sequence of simulated baseline noise on every execution. Changing this integer will apply a different noise distribution, which marginally shifts the data scatter and results in slightly different final $R^2$ values.
+    </li>
+</ul>
+
+<hr>
+
+<h3>Phase 2: SciPy Analytics & Mathematical Derivations</h3>
+
+<h4>1. The Kinetic Transformations</h4>
+<p>Linear regression algorithms strictly calculate the fit of a straight line ($y = mx + c$). Because chemical concentrations decay exponentially, we use integration to mathematically straighten the data. Below are the derivations proving these transformations:</p>
+
+<strong>Zero-Order Reaction (No Transformation)</strong>
+<p>The rate is independent of concentration.</p>
+$$-\frac{d[A]}{dt} = k$$
+$$\int_{[A]_0}^{[A]_t} d[A] = -k \int_{0}^{t} dt$$
+$$[A]_t = -kt + [A]_0$$
+<p><em>Plotting $[A]_t$ vs $t$ yields a straight line with slope $-k$.</em></p>
+
+<strong>First-Order Reaction (Natural Log Transformation)</strong>
+<p>The rate is directly proportional to concentration.</p>
+$$-\frac{d[A]}{dt} = k[A]$$
+$$\int_{[A]_0}^{[A]_t} \frac{1}{[A]} d[A] = -k \int_{0}^{t} dt$$
+$$\ln[A]_t = -kt + \ln[A]_0$$
+<p><em>Plotting $\ln[A]_t$ vs $t$ yields a straight line with slope $-k$.</em></p>
+
+<strong>Second-Order Reaction (Reciprocal Transformation)</strong>
+<p>The rate is proportional to the square of the concentration.</p>
+$$-\frac{d[A]}{dt} = k[A]^2$$
+$$\int_{[A]_0}^{[A]_t} \frac{1}{[A]^2} d[A] = -k \int_{0}^{t} dt$$
+$$-\left( \frac{1}{[A]_t} - \frac{1}{[A]_0} \right) = -kt$$
+$$\frac{1}{[A]_t} = kt + \frac{1}{[A]_0}$$
+<p><em>Plotting $1/[A]_t$ vs $t$ yields a straight line with slope $k$.</em></p>
+
+<h4>2. The Regression Pipeline</h4>
+<ul>
+    <li>
+        <strong><code>time_s = df_clean["time"]</code></strong><br>
+        <strong>Purpose:</strong> Isolates the independent variable (X-axis) directly from the filtered dataset, ensuring the length of the time array perfectly matches the cleaned concentration arrays.
+    </li>
+    <li>
+        <strong><code>zero_fit = linregress(time_s, df_clean["zero_order"])</code></strong> (and subsequent fits)<br>
+        <strong>Purpose:</strong> Executes an Ordinary Least Squares (OLS) regression on all three kinetic models simultaneously to determine the slope, intercept, and correlation.
+    </li>
+    <li>
+        <strong><code>zero_r_squared = zero_fit.rvalue ** 2</code></strong><br>
+        <strong>Purpose:</strong> <code>linregress</code> returns Pearson's correlation coefficient ($r$). Squaring it gives the coefficient of determination ($R^2$), representing the percentage of data variance strictly explained by the linear model.
+    </li>
+    <li>
+        <strong><code>print(f"... {zero_r_squared:.4f}")</code></strong><br>
+        <strong>Purpose:</strong> The <code>:.4f</code> forces Python to format the floating-point output to exactly 4 decimal places, adhering to analytical chemistry reporting standards.
+    </li>
+    <li>
+        <strong><code>best_fit = max(...)</code> and Decision Logic</strong><br>
+        <strong>Purpose:</strong> This acts as the automated decision engine. Because the correct integrated rate law perfectly straightens the decay curve, the script logically deduces that the model with the $R^2$ closest to 1.0 represents the true reaction order.
+    </li>
+</ul>
+
+<hr>
+
+<h3>Phase 3: Matplotlib Visualization</h3>
+<ul>
+    <li>
+        <strong><code>fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))</code></strong><br>
+        <strong>Purpose:</strong> Initializes a Figure object (the overall canvas) and creates an array of three distinct Axes objects (subplots) arranged in 1 row and 3 columns. The <code>figsize=(15, 5)</code> ensures the output is properly scaled for a README image without squashing the data.
+    </li>
+</ul>
+
+<h4>Anatomy of a Subplot Block</h4>
+<pre><code>ax1.scatter(time_s, df_clean['zero_order'], color='red', alpha=0.6, label='Simulated Data')
+zero_line = zero_fit.slope * time_s + zero_fit.intercept
+ax1.plot(time_s, zero_line, color='black', linestyle='--', label='Fit')
+ax1.set_title(f"Zero Order\nR² = {zero_r_squared:.4f}")
+ax1.set_xlabel("Time (s)")
+ax1.set_ylabel("[N2O5]")
+ax1.legend()
+</code></pre>
+<ul>
+    <li><strong><code>ax1.scatter(...)</code>:</strong> Plots the raw laboratory data as individual points. <code>alpha=0.6</code> adds transparency so overlapping points remain visible.</li>
+    <li><strong><code>zero_line = ...</code>:</strong> Mathematically constructs the theoretical trendline using the classical $y = mx + c$ equation derived from the SciPy regression.</li>
+    <li><strong><code>ax1.plot(...)</code>:</strong> Overlays the calculated trendline onto the scattered data.</li>
+    <li><strong><code>ax1.set_title(...)</code> & labels:</strong> Injects the dynamically calculated $R^2$ values directly into the chart header and applies standard SI unit labels to the axes.</li>
+</ul>
 
 
 
