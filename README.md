@@ -153,11 +153,7 @@ This project successfully bridges classical physical chemistry with modern compu
 
 **Potential Future Enhancements:**
 * **Real-World Data Integration:** Adapting the ingestion pipeline to parse raw `.csv` or `.txt` exports directly from benchtop UV-Vis spectrometers.
-* **Arrhenius Expansion:** Integrating temperature-dependent datasets to automatically calculate activation energy ($E_a$) and the pre-exponential factor ($A$).
-* **Advanced Error Handling:** Implementing rolling averages or Savitzky-Golay filters in `scipy.signal` to smooth extreme baseline noise before regression analysis.
-
-
-
+* **Advanced Error Handling:** Implementing rolling averages in `scipy.signal` to smooth extreme baseline noise before regression analysis.
 
 
 ## Tech Stack
