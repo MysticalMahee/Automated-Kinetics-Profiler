@@ -5,7 +5,7 @@ To build an automated, programmatic pipeline that determines chemical reaction o
 
 
 ## Source of Information
-All values that I have used are random and not actual data, but ideas were received from the following website:
+All values that I have used are random and not actual data, but ideas were inspired from the following website:
 https://kinetics.nist.gov/kinetics/index.jsp . The following screenshots below shall show what to do to get to the following data we are interested to see:
 
 <img width="1421" height="987" alt="image" src="https://github.com/user-attachments/assets/f043f35e-97ab-486f-9cea-e2d9d1f99b8c" />
