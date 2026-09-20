@@ -33,7 +33,7 @@ There are some parts of the code in which users can play and test around to see 
     <li>
         <strong><code>time_s = np.linspace(0, 60, 60)</code></strong><br>
         <strong>Purpose:</strong> Defines the sampling window and data density. 
-        <br><strong>The "Goldilocks" Principle:</strong> For a rate constant of $k = 0.06$ s⁻¹, the half-life is roughly $11.55$ seconds. A 60-second window captures ~5 half-lives, which is the physical chemistry gold standard for kinetic profiling. 
+        <br><strong>The "Goldilocks" Principle:</strong> For a rate constant of $k = 0.06$ s⁻¹, the half-life is roughly $11.55$ seconds. A 60-second window captures ~5 half-lives, which is the standard for kinetic profiling. 
         <ul>
             <li><em>Too high (e.g., 1000 points over 1000s):</em> The chemical is entirely depleted by 100s. The remaining 900s would sample pure baseline instrument noise. Taking the natural log of baseline noise creates massive scatter, destroying the $R^2$ value.</li>
             <li><em>Too low (e.g., 10 points over 60s):</em> Yields insufficient data density to achieve statistical confidence in the linear regression. 60 points perfectly mimics a standard 1 Hz UV-Vis spectrometer acquisition rate.</li>
@@ -105,7 +105,7 @@ Plotting $1/[A]_t$ vs $t$ yields a straight line with slope $k$.
     </li>
     <li>
         <strong><code>print(f"... {zero_r_squared:.4f}")</code></strong><br>
-        <strong>Purpose:</strong> The <code>:.4f</code> forces Python to format the floating-point output to exactly 4 decimal places, adhering to analytical chemistry reporting standards.
+        <strong>Purpose:</strong> The <code>:.4f</code> forces Python to format the floating-point output to exactly 4 decimal places.
     </li>
     <li>
         <strong><code>best_fit = max(...)</code> and Decision Logic</strong><br>
