@@ -20,7 +20,7 @@ The pipeline ingests raw instrumental data and applies mathematical transformati
 
 
 ## Python code help and warnings
-'''python
+'''
 time_s = np.linspace(0, 60, 60) 
 '''
 
