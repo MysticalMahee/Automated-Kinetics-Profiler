@@ -9,7 +9,8 @@ The pipeline ingests raw instrumental data and applies mathematical transformati
 ## Visual Validation
 The script utilizes `matplotlib` to generate a side-by-side diagnostic plot, proving the mathematical output. As demonstrated below, the pipeline successfully identified the simulated $N_2O_5$ decomposition data as a First-Order reaction.
 
-![Kinetics Fit](Kinetics_Analysis_Result.png)
+<img width="1439" height="1006" alt="image" src="https://github.com/user-attachments/assets/dc6ea304-3113-4965-8896-7bc726edc629" />
+
 
 ## Tech Stack
 * **Data Processing:** `pandas`, `numpy`
