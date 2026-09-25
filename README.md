@@ -156,6 +156,15 @@ This project successfully bridges classical physical chemistry with modern compu
 * **Advanced Error Handling:** Implementing rolling averages in `scipy.signal` to smooth extreme baseline noise before regression analysis.
 
 
+<h3>Project Impact Summary</h3>
+<ul>
+    <li><strong>Automated Chemical Analytics:</strong> Engineered a computational pipeline to determine reaction orders, replacing manual Excel workflows by utilizing Python and <code>scipy.stats</code> to execute simultaneous linear regressions on integrated rate laws.</li>
+    <li><strong>Robust Data Pipeline:</strong> Processed simulated, high-noise UV-Vis spectrometer datasets, preventing analytical transformation errors (e.g., logarithmic <code>NaN</code> values) by implementing strict Pandas filtering logic to isolate valid chemical signals from baseline detector drift.</li>
+    <li><strong>Stakeholder Visualization:</strong> Validated the statistical best-fit model (R&sup2; &gt; 0.90) by automating the generation of publication-ready, multi-panel diagnostic visualizations using Matplotlib.</li>
+</ul>
+
+
+
 ## Tech Stack
 * **Data Processing:** `pandas`, `numpy`
 * **Statistical Modeling:** `scipy`
