@@ -41,7 +41,7 @@ There are some parts of the code in which users can play and test around to see 
     </li>
     <li>
         <strong><code>np.random.seed(50)</code></strong><br>
-        <strong>Purpose:</strong> Initializes the pseudo-random number generator for reproducibility. By locking the seed to a specific integer (like 20), the script applies the exact same sequence of simulated baseline noise on every execution. Changing this integer will apply a different noise distribution, which marginally shifts the data scatter and results in slightly different final $R^2$ values.
+        <strong>Purpose:</strong> Initializes the pseudo-random number generator for reproducibility. By locking the seed to a specific integer (like 50), the script applies the exact same sequence of simulated baseline noise on every execution. Changing this integer will apply a different noise distribution, which marginally shifts the data scatter and results in slightly different final $R^2$ values.
     </li>
 </ul>
 
